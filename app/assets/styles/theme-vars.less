@@ -1,0 +1,33 @@
+// assets/styles/theme-vars.less
+// 🌟 基础变量：所有主题共用
+:root {
+  --transition-base: all 0.3s ease; // 统一过渡动画
+  --input-border-radius: 40px;      // 输入框圆角
+  --label-font-size: 12px;          // label聚焦后字体大小
+}
+
+// 🌟 亮色主题（6:00-18:00）
+html.light-theme {
+  // 全局样式
+  --global-bg: #ffffff;
+  --global-text: #111111;
+  --input-border: #e5e7eb;
+  --input-focus-border: #667eea;
+  // label专属样式（关键：解决突兀问题）
+  --label-bg: #ffffff;
+  --label-color: #111111;
+  --label-placeholder: #718096;
+}
+
+// 🌟 暗黑主题（18:00-次日6:00）
+html.dark-theme {
+  // 全局样式
+  --global-bg: #111111;
+  --global-text: #ffffff;
+  --input-border: #374151;
+  --input-focus-border: #667eea;
+  // label专属样式（关键：背景和全局一致）
+  --label-bg: #111111;
+  --label-color: #ffffff;
+  --label-placeholder: #9ca3af;
+}

@@ -10,8 +10,14 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@arco-design/web-vue": "^2.57.0",
     "nuxt": "^4.2.2",
     "vue": "^3.5.25",
     "vue-router": "^4.6.4"
+  },
+  "devDependencies": {
+    "@arco-plugins/vite-vue": "^1.4.6",
+    "less": "^4.5.1",
+    "less-loader": "^12.3.0"
   }
 }

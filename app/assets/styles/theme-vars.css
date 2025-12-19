@@ -1,0 +1,23 @@
+:root {
+  --transition-base: all 0.3s ease;
+  --input-border-radius: 40px;
+  --label-font-size: 12px;
+}
+html.light-theme {
+  --global-bg: #ffffff;
+  --global-text: #111111;
+  --input-border: #e5e7eb;
+  --input-focus-border: #667eea;
+  --label-bg: #ffffff;
+  --label-color: #111111;
+  --label-placeholder: #718096;
+}
+html.dark-theme {
+  --global-bg: #111111;
+  --global-text: #ffffff;
+  --input-border: #374151;
+  --input-focus-border: #667eea;
+  --label-bg: #111111;
+  --label-color: #ffffff;
+  --label-placeholder: #9ca3af;
+}
