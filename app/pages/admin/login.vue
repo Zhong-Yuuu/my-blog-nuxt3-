@@ -56,20 +56,28 @@ defineOptions({
 
 const form = ref({ username: "", password: "" });
 const router = useRouter();
+const route = useRoute();
+console.log('route', route);
+
+const id = route.params.id
+
+
 const { initThemeByTime } = useTheme();
 initThemeByTime();
 
-const handleLogin = () => {
-  if (!form.value.username || !form.value.password) {
-    alert("请输入用户名/密码！");
-    return;
-  }
 
-  // 登录时补调一次（防止登录过程中时间跨域，如17:59→18:01）
-  initThemeByTime();
-  alert("登录成功！");
-  router.push("/admin");
-};
+
+// const handleLogin = () => {
+//   if (!form.value.username || !form.value.password) {
+//     alert("请输入用户名/密码！");
+//     return;
+//   }
+
+//   // 登录时补调一次（防止登录过程中时间跨域，如17:59→18:01）
+//   initThemeByTime();
+//   alert("登录成功！");
+//   router.push("/admin");
+// };
 </script>
 
 <style lang="less" scoped>

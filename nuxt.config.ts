@@ -22,4 +22,15 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'node-server'
   },
+  runtimeConfig: {
+    // 服务器端可见（私钥）
+    mysqlHost: process.env.NUXT_MYSQL_HOST,
+    mysqlPort: process.env.NUXT_MYSQL_PORT,
+    mysqlUser: process.env.NUXT_MYSQL_USER,
+    mysqlPassword: process.env.NUXT_MYSQL_PASSWORD,
+    mysqlDatabase: process.env.NUXT_MYSQL_DATABASE,
+    mysqlConnectionLimit: process.env.NUXT_MYSQL_CONNECTION_LIMIT,
+    // 客户端可见（公钥，这里无需暴露数据库信息）
+    public: {},
+  },
 })

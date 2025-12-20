@@ -17,7 +17,10 @@
   },
   "devDependencies": {
     "@arco-plugins/vite-vue": "^1.4.6",
+    "@types/bcryptjs": "^3.0.0",
+    "bcryptjs": "^3.0.3",
     "less": "^4.5.1",
-    "less-loader": "^12.3.0"
+    "less-loader": "^12.3.0",
+    "mysql2": "^3.16.0"
   }
 }
