@@ -17,7 +17,7 @@
               <input
                 type="text"
                 class="custom-input"
-                placeholder=" "
+                placeholder=""
                 v-model="form.username"
                 id="admin"
               />
@@ -57,27 +57,35 @@ defineOptions({
 const form = ref({ username: "", password: "" });
 const router = useRouter();
 const route = useRoute();
-console.log('route', route);
 
 const id = route.params.id
-
 
 const { initThemeByTime } = useTheme();
 initThemeByTime();
 
+const handleLogin = async () => {
+  if (!form.value.username || !form.value.password) {
+    Message.warning({
+      content: '请输入用户名/密码',
+      duration: 2000
+    });
+    return;
+  }
 
+  try {
+    // 调用封装的 POST 请求
+    const res = await usePost('/login', {
+      username: form.value.username,
+      password: form.value.password,
+    });
 
-// const handleLogin = () => {
-//   if (!form.value.username || !form.value.password) {
-//     alert("请输入用户名/密码！");
-//     return;
-//   }
-
-//   // 登录时补调一次（防止登录过程中时间跨域，如17:59→18:01）
-//   initThemeByTime();
-//   alert("登录成功！");
-//   router.push("/admin");
-// };
+    // 登录成功逻辑
+    localStorage.setItem('adminId', res.data.id);
+    router.push("/");
+  } catch (error) {
+    console.error('登录失败', error);
+  }
+};
 </script>
 
 <style lang="less" scoped>
