@@ -3,6 +3,8 @@
 </template>
 
 <script setup>
+const nuxtApp = useNuxtApp()
+console.log('nuxtApp', nuxtApp);
 
 </script>
 

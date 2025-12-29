@@ -5,10 +5,7 @@
       <span style="--clr: #ff0057"></span>
       <span style="--clr: #fffd44"></span>
 
-      <a-form
-        class="login-form"
-        layout="vertical"
-      >
+      <a-form class="login-form" layout="vertical">
         <h2 class="login-title">登录</h2>
 
         <a-form-item>
@@ -42,7 +39,9 @@
         </a-form-item>
 
         <div class="login-btn-wrap">
-          <button type="submit" class="login-btn" @click="handleLogin">登录</button>
+          <button type="submit" class="login-btn" @click="handleLogin">
+            登录
+          </button>
         </div>
       </a-form>
     </div>
@@ -51,14 +50,12 @@
 
 <script setup>
 defineOptions({
-  clientOnly: true
-})
+  clientOnly: true,
+});
 
 const form = ref({ username: "", password: "" });
 const router = useRouter();
 const route = useRoute();
-
-const id = route.params.id
 
 const { initThemeByTime } = useTheme();
 initThemeByTime();
@@ -66,24 +63,24 @@ initThemeByTime();
 const handleLogin = async () => {
   if (!form.value.username || !form.value.password) {
     Message.warning({
-      content: '请输入用户名/密码',
-      duration: 2000
+      content: "请输入用户名/密码",
+      duration: 2000,
     });
     return;
   }
 
   try {
     // 调用封装的 POST 请求
-    const res = await usePost('/login', {
+    const res = await usePost("/login", {
       username: form.value.username,
       password: form.value.password,
     });
 
     // 登录成功逻辑
-    localStorage.setItem('adminId', res.data.id);
+    localStorage.setItem("adminId", res.data.id);
     router.push("/");
   } catch (error) {
-    console.error('登录失败', error);
+    console.error("登录失败", error);
   }
 };
 </script>
@@ -119,7 +116,7 @@ const handleLogin = async () => {
     inset: 0;
     transition: var(--transition-base);
   }
-  
+
   .login-form {
     position: absolute;
     width: 300px;
@@ -182,6 +179,6 @@ const handleLogin = async () => {
 }
 
 :deep(.arco-row.arco-row-align-start.arco-row-justify-start) {
-    width: 300px
-  }
+  width: 300px;
+}
 </style>
