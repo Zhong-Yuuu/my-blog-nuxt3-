@@ -19,14 +19,24 @@ export const getMysqlPool = async () => {
     // 获取运行时配置(读取 .env 中的 NUXT_* 变量)
     const config = useRuntimeConfig()
 
+    // 添加默认值和验证
+    const dbConfig = {
+        host: config.mysqlHost || 'localhost',
+        port: Number(config.mysqlPort) || 3306,
+        user: config.mysqlUser || 'root',
+        password: config.mysqlPassword || '',
+        database: config.mysqlDatabase || 'nuxt_blog',
+        connectionLimit: Number(config.mysqlConnectionLimit) || 10
+    }
+
+    // 验证必要配置
+    if (!dbConfig.host || !dbConfig.user || !dbConfig.database) {
+        throw new Error('数据库配置不完整，请检查环境变量设置')
+    }
+
     // 创建连接池
     pool = await mysql.createPool({
-        host: config.mysqlHost,
-        port: Number(config.mysqlPort),
-        user: config.mysqlUser,
-        password: config.mysqlPassword,
-        database: config.mysqlDatabase,
-        connectionLimit: Number(config.mysqlConnectionLimit),
+        ...dbConfig,
         charset: 'utf8mb4',     // 支持 emoji、中文
         timezone: '+08:00'      // 时区
     })

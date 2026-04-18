@@ -29,7 +29,7 @@
               <input
                 type="password"
                 class="custom-input"
-                placeholder=" "
+                placeholder=""
                 v-model="form.password"
                 id="password"
               />
@@ -77,7 +77,8 @@ const handleLogin = async () => {
     });
 
     // 登录成功逻辑
-    localStorage.setItem("adminId", res.data.id);
+    // 修复：存储token而不是adminId，保持与useRequest中的读取逻辑一致
+    localStorage.setItem("adminToken", res.data.token);
     router.push("/");
   } catch (error) {
     console.error("登录失败", error);

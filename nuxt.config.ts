@@ -22,6 +22,11 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'node-server'
   },
+
+  // 环境变量配置
+  env: {
+    VITE_API_BASE_URL: process.env.VITE_API_BASE_URL || '/api'
+  },
   runtimeConfig: {
     // 服务器端可见（私钥）
     mysqlHost: process.env.NUXT_MYSQL_HOST,
@@ -33,4 +38,17 @@ export default defineNuxtConfig({
     // 客户端可见（公钥，这里无需暴露数据库信息）
     public: {},
   },
+
+  $development: {
+    // 开发环境配置
+  },
+  $production: {
+    // 生产环境配置
+  },
+  $env: {
+    // 自定义环境配置
+    staging: {    // 自定义[预发布环境]名称
+      
+    }
+  }
 })
