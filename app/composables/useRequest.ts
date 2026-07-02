@@ -97,7 +97,7 @@ export const useRequest = async <T = any>(
         if (response.status === 401) {
           localStorage.removeItem('adminToken'); // 清除无效 Token
           const router = useRouter();
-          router.push('/login');
+          router.push('/admin/login');
         }
       },
     });

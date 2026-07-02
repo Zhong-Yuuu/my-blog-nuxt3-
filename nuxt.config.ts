@@ -22,7 +22,40 @@ export default defineNuxtConfig({
   nitro: {
     preset: 'node-server'
   },
-
+  app: {
+    head: {
+      title: 'My Blog',
+      titleTemplate: '%s - ZhongYu@gmail.com',
+      charset: 'UTF-8',
+      viewport: 'width=device-width, initial-scale=1',
+      meta: [
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      ],
+      script: [
+        
+      ],
+      style: [],
+      htmlAttrs: {
+        lang: 'zh-CN'
+      },
+      bodyAttrs: {
+        
+      }
+    },
+    // 页面过渡效果(需要在 app.vue 文件中设置相关样式)
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in'
+    },
+    // 布局过渡效果(需要在 app.vue 文件中设置相关样式)
+    layoutTransition: {
+      name: 'layout',
+      mode: 'in-out'
+    }
+  },
   // 环境变量配置
   env: {
     VITE_API_BASE_URL: process.env.VITE_API_BASE_URL || '/api'

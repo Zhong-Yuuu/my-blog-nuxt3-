@@ -17,23 +17,26 @@ const generateToken = (username: string) => {
 export const verifyToken = (token: string) => {
     try {
         const secret = 'my_nuxt3_blog_secret'
-        // 修复：Token格式为 "hash_expireTime"，需要正确解析
+        // Token 生成格式为 "hash_timestamp_expireTime"，共 3 段
         const parts = token.split('_')
-        if (parts.length !== 2) {
+        if (parts.length !== 3) {
             throw createError({ statusCode: 401, message: 'Token格式无效' })
         }
 
-        const [hash, expireTime] = parts
+        const [hash, timestamp, expireTime] = parts
 
         // 1. 检验是否过期
         if (Number(expireTime) < Date.now()) {
             throw createError({ statusCode: 401, message: 'Token已过期' })
         }
 
-        // 2. 从数据库或缓存中获取用户名进行验证
-        // 注意：这里需要重构Token生成逻辑，当前方式无法验证签名
-        // 临时方案：仅验证Token格式和过期时间
-        // TODO: 后续应使用JWT或存储Token到数据库进行完整验证
+        // 2. 验证签名完整性
+        const payload = `${timestamp}`
+        const expectedHash = crypto.createHash('sha256').update(payload + secret).digest('hex')
+        if (hash !== expectedHash) {
+            throw createError({ statusCode: 401, message: 'Token签名无效' })
+        }
+
         return true
     } catch (error) {
         throw createError({ statusCode: 401, message: 'Token无效' })
@@ -65,7 +68,7 @@ export default defineEventHandler(async (event) => {
         
         // 安全取第一个元素，无数据则为undefined
         const existingUser = userList && userList.length > 0 ? userList[0] : undefined;
-        let currentUser = existingUser; // 全局变量，避免重复声明
+        let currentUser = existingUser;
 
         // 4. 核心逻辑：用户不存在 → 自动创建
         if (!existingUser) {
@@ -76,14 +79,14 @@ export default defineEventHandler(async (event) => {
                 `insert into sys_user (username, password, nickname, status) values (?, ?, ?, ?)`,
                 [username, hashPassword, '管理员', 1]
             );
-            // 4.3 重新查询创建后的用户（关键修复2：同样安全取值）
+            // 4.3 重新查询创建后的用户
             const newUserList = await query<Array<{
                 id: number
                 username: string
                 nickname: string
                 status: number
             }>>(`select id, username, nickname, status from sys_user where username = ?`, [username]);
-            let currentUser = newUserList && newUserList.length > 0 ? newUserList[0] : undefined;
+            currentUser = newUserList && newUserList.length > 0 ? newUserList[0] : undefined;
 
             // 兜底：创建后仍无数据则抛错
             if (!currentUser) {

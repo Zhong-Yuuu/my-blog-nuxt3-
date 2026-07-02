@@ -6,7 +6,7 @@
       <span style="--clr: #fffd44"></span>
 
       <a-form class="login-form" layout="vertical">
-        <h2 class="login-title">登录</h2>
+        <h2 class="login-title">LOGIN</h2>
 
         <a-form-item>
           <a-row>
@@ -40,7 +40,7 @@
 
         <div class="login-btn-wrap">
           <button type="submit" class="login-btn" @click="handleLogin">
-            登录
+            LOGIN
           </button>
         </div>
       </a-form>
@@ -160,6 +160,9 @@ const handleLogin = async () => {
   background: linear-gradient(45deg, #ff357a, #fff172);
   color: var(--label-color);
   font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-indent: 0.32em;
   cursor: pointer;
   transition: var(--transition-base);
 
